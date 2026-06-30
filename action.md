@@ -57,30 +57,14 @@ jobs:
             cache: 'npm'
 
 <!--  Add cache -->
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          cache: 'npm'
-
-
-<!--  Add cache for node moduls-->
-
-      - name: Cache node modules
-        id: cache-node-modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node22-${{ hashFiles('**/package-lock.json') }}
-
-
-<!-- Add Cache for next.js build -->
-
       - name: Cache Next.js build
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '!**/node_modules/**') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
             ${{ runner.os }}-nextjs-
+
+
 
